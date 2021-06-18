@@ -5,9 +5,13 @@ pipeline {
         maven 'Maven'
         nodejs "NodeJs"
     }
+
     stages {
       stage ('Initial') {
             steps {
+              echo '========================================='
+              echo '                INITIAL '
+              echo '========================================='
               sh '''
                    echo "PATH = ${PATH}"
                    echo "M2_HOME = ${M2_HOME}"
@@ -16,34 +20,33 @@ pipeline {
         }
         stage ('Compile') {
             steps {
+                echo '========================================='
+                echo '                COMPILE '
+                echo '========================================='
                  sh 'mvn clean compile -e'
             }
         }
         stage ('Test') {
             steps {
+                echo '========================================='
+                echo '                TEST '
+                echo '========================================='
                  sh 'mvn clean test -e'
             }
         }
 
         stage('SonarQube analysis') {
            steps{
+               echo '========================================='
+              echo '                SONARQUBE '
+              echo '========================================='
                 script {
                     def scannerHome = tool 'SonarQube Scanner';//def scannerHome = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
                     withSonarQubeEnv('Sonar Server') {
-                      sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=Ms-Maven -Dsonar.sources=target/ -Dsonar.host.url=http://172.18.0.3:9000 -Dsonar.login=ef0b0509f1f1f74c59c15d1d467c66967ff69f2c"
-                      //sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=Maven -Dsonar.host.url=http://172.18.0.3:9000 -Dsonar.login=ef0b0509f1f1f74c59c15d1d467c66967ff69f2c -Dsonar.dependencyCheck.jsonReportPath=target/dependency-check-report.json -Dsonar.dependencyCheck.xmlReportPath=target/dependency-check-report.xml -Dsonar.dependencyCheck.htmlReportPath=target/dependency-check-report.html"
-
+                      sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=Ms-Maven -Dsonar.sources=target/ -Dsonar.host.url=http://172.18.0.3:9000 -Dsonar.login=660b4e3d5fd8ddcb8829a9a59a8ca66b3fe17952"
                     }
                 }
            }
         }
-
-        stage ('SCA') {
-            steps {
-                 sh 'mvn org.owasp:dependency-check-maven:check'
-                dependencyCheckPublisher failedNewCritical: 5, failedTotalCritical: 10, pattern: 'terget/dad.xml', unstableNewCritical: 3, unstableTotalCritical: 5
-            }
-        }
-
     }
 }
