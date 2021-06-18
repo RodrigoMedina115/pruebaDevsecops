@@ -30,8 +30,8 @@ pipeline {
                 script {
                     def scannerHome = tool 'SonarQube Scanner';//def scannerHome = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
                     withSonarQubeEnv('Sonar Server') {
-                      sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=Ms-Maven -Dsonar.sources=target/ -Dsonar.host.url=http://172.17.0.3:9000 -Dsonar.login=4efa8aa5d37c5f4680037d1c0bbf265915727bc1"
-                      //sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=Maven -Dsonar.host.url=http://172.17.0.3:9000 -Dsonar.login=4efa8aa5d37c5f4680037d1c0bbf265915727bc1 -Dsonar.dependencyCheck.jsonReportPath=target/dependency-check-report.json -Dsonar.dependencyCheck.xmlReportPath=target/dependency-check-report.xml -Dsonar.dependencyCheck.htmlReportPath=target/dependency-check-report.html"
+                      sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=Ms-Maven -Dsonar.sources=target/ -Dsonar.host.url=http://172.17.0.3:9000 -Dsonar.login=50184a21424e1b125d0fa67e1098c7fada73b1a2"
+                      //sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=Maven -Dsonar.host.url=http://172.17.0.3:9000 -Dsonar.login=50184a21424e1b125d0fa67e1098c7fada73b1a2 -Dsonar.dependencyCheck.jsonReportPath=target/dependency-check-report.json -Dsonar.dependencyCheck.xmlReportPath=target/dependency-check-report.xml -Dsonar.dependencyCheck.htmlReportPath=target/dependency-check-report.html"
 
                     }
                 }
